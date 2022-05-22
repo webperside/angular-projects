@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row">
+        <div class="col-9 mx-auto">
+            <h3 class="bg-primary text-white p-3">
+                {{ getModel().getName() }}'s To Do List
+            </h3>
+
+            <div class="input-group mb-3">
+                <input #toDoDesc type="text" [(ngModel)]="inputText" class="form-control"
+                    (keyup.enter)="addItemAndClearInput()" />
+                <button [class]="{
+                    'disabled' : inputText.length == 0
+                }" class="btn btn-outline-primary" (click)="addItemAndClearInput()">Add item</button>
+            </div>
+
+            <div class="from-check mb-3">
+                <input type="checkbox" [(ngModel)]="displayAll" class="form-check-input" name="" id="displayAll">
+                <label for="displayAll" class="form-check-label"> Show all</label>
+            </div>
+
+            <div class="my-2">
+                {{ getDoneItemsCount() }} items is done
+            </div>
+
+            <table class="table table-bordered" *ngIf="getItems().length > 0">
+                <caption>Item count : {{ getItems().length }}</caption>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Description</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of getItems(); let i = index" [ngClass]="{
+                            'bg-success': item.action,
+                            'text-white': item.action, 
+                            'bg-warning': item.action == false
+                        }">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.desc }}</td>
+                        <td style="width: 25%">
+                            <div [ngSwitch]="item.action">
+                                <span *ngSwitchCase="true">Done</span>
+                                <span *ngSwitchDefault>Pending</span>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="checkbox"
+                             [(ngModel)]="item.action" class="form-check-input" name=""
+                             (change) = "changeItemStatus()"
+                                id="itemAction">
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <div class="alert alert-success" *ngIf="getItems().length == 0">
+                There is no items to do. Good job ! :)
+            </div>
+        </div>
+    </div>
+</div>
