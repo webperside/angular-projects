@@ -1,0 +1,23 @@
+<!-- <ng-template [ngTemplateOutlet]="popularMoviesTemplate" [ngTemplateOutletContext]="{pm : popularMovies}"></ng-template> -->
+<div *ngIf="movies.length > 0">
+    <h1>{{ title }}</h1>
+    <div class="alert alert-success">
+        {{ movies.length }}
+        <span *ngIf="movies.length > 1; then grammarIf; else grammarElse"></span>
+        found
+    </div>
+    <app-movie *ngFor="let item of movies" [movie]="item"></app-movie>
+</div>
+
+<!-- | movieFiter: movieFilterText -->
+
+<!-- templates -->
+<!-- #grammar -->
+<ng-template #grammarIf>movies</ng-template>
+<ng-template #grammarElse>movie</ng-template>
+
+<ng-template #popularMoviesTemplate let-popularMovies="pm">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-3">
+        <app-popular-movie *ngFor="let item of popularMovies"></app-popular-movie>
+    </div>
+</ng-template>

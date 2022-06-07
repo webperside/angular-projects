@@ -46,10 +46,8 @@
                             </div>
                         </td>
                         <td>
-                            <input type="checkbox"
-                             [(ngModel)]="item.action" class="form-check-input" name=""
-                             (change) = "changeItemStatus()"
-                                id="itemAction">
+                            <input type="checkbox" [(ngModel)]="item.action" class="form-check-input" name=""
+                                (change)="changeItemStatus()" id="itemAction">
                         </td>
                     </tr>
                 </tbody>
